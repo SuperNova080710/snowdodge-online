@@ -158,8 +158,8 @@ h2 {
 
 .content-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 22px;
+  grid-template-columns: 220px minmax(0, 1fr) 320px;
+  gap: 24px;
   align-items: start;
 }
 
