@@ -19,33 +19,30 @@ html,
 body {
   margin: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   min-width: 320px;
   font-family: Inter, Pretendard, "Noto Sans KR", Arial, sans-serif;
   color: var(--text);
   background: linear-gradient(180deg, #cfe1ea 0%, #eef5f8 100%);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .page-shell {
   width: min(1180px, calc(100% - 24px));
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
-  padding: clamp(6px, 1vh, 12px) 0;
+  padding: 12px 0;
   display: flex;
   align-items: center;
 }
 
 .game-card {
   width: 100%;
-  height: calc(100vh - clamp(12px, 2vh, 24px));
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  background: rgba(248,251,253,.94);
-  border: 1px solid rgba(174,194,205,.9);
+  background: rgba(248, 251, 253, 0.94);
+  border: 1px solid rgba(174, 194, 205, 0.9);
   border-radius: 20px;
-  padding: clamp(10px, 1.5vh, 16px);
+  padding: 16px;
 }
 
 button,
@@ -98,8 +95,9 @@ h1 {
 }
 
 h2 {
-  font-size: clamp(18px, 2vh, 22px);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  letter-spacing: -0.03em;
 }
 
 .top-actions {
@@ -159,16 +157,10 @@ h2 {
 }
 
 .content-grid {
-  flex: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 280px;
-  gap: clamp(10px, 1.5vw, 20px);
-  min-height: 0;
-}
-
-.game-panel,
-.side-panel {
-  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 22px;
+  align-items: start;
 }
 
 .game-panel {
@@ -177,9 +169,22 @@ h2 {
 
 .arena {
   position: relative;
-  width: min(100%, calc(100vh - 190px), 620px);
+  width: min(100%, calc(100vh - 230px), 680px);
   aspect-ratio: 1 / 1;
   margin: 0 auto;
+  overflow: hidden;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,0.98) 0 6%, transparent 6.5%),
+    radial-gradient(circle at 38% 35%, rgba(255,255,255,0.55) 0 2px, transparent 3px),
+    radial-gradient(circle at 62% 58%, rgba(255,255,255,0.45) 0 2px, transparent 3px),
+    linear-gradient(160deg, #edf8fc 0%, #d6edf5 55%, #c7e3ee 100%);
+  border: 3px solid rgba(138, 170, 185, 0.72);
+  box-shadow:
+    inset 0 0 0 10px rgba(255,255,255,0.22),
+    inset 0 -24px 40px rgba(124, 166, 184, 0.10),
+    0 20px 50px rgba(77, 104, 120, 0.18);
+  touch-action: none;
 }
 
 .arena::before,
@@ -374,21 +379,22 @@ h2 {
 
 .side-panel {
   display: grid;
-  gap: 6px;
-  align-content: start;
+  gap: 8px;
 }
 
 .info-block,
 .setting-block,
 .rule-block,
 .leaderboard-block {
-  padding: 10px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
 }
 
 .info-block p:not(.section-label),
 .setting-block p {
-  font-size: 12px;
-  line-height: 1.3;
+  color: var(--muted);
+  line-height: 1.4;
 }
 
 .key-guide {
@@ -552,38 +558,7 @@ kbd {
 .move-btn.down { grid-area: down; }
 .move-btn.right { grid-area: right; }
 
-@media (max-height: 800px) {
-  h1 {
-    font-size: 32px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  .status-item {
-    padding: 6px 10px;
-  }
-
-  .info-block,
-  .setting-block,
-  .rule-block,
-  .leaderboard-block {
-    padding: 8px;
-  }
-
-  .arena {
-    width: min(100%, calc(100vh - 170px), 520px);
-  }
-
-  .primary-btn,
-  .secondary-btn,
-  .ghost-btn {
-    min-height: 36px;
-  }
-}
-
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .content-grid {
     grid-template-columns: 1fr;
   }
