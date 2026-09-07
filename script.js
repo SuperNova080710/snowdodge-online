@@ -29,7 +29,7 @@
   const SNOWBALL_SPEED = 255;
   // Vercel 배포 시 아래에 백엔드 URL을 넣으세요. 예: "https://your-api.example.com"
   // 비워 두면 로컬(localhost)일 때만 http://localhost:3000 사용
-  const PRODUCTION_API_BASE = "http://upseul.mooo.com:8000/api";
+  const PRODUCTION_API_BASE = "http://upseul.mooo.com:8000";
   const API_BASE =
     window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
       ? "http://localhost:3000"
