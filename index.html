@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SNOW DODGE</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="page-shell">
+    <section class="game-card" aria-labelledby="game-title">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MINI GAME</p>
+          <h1 id="game-title">SNOW DODGE</h1>
+        </div>
+
+        <div class="top-actions">
+          <button id="pauseBtn" class="ghost-btn" type="button" disabled>PAUSE</button>
+          <button id="effectBtn" class="ghost-btn" type="button" aria-pressed="false">EFFECT ON</button>
+        </div>
+      </header>
+
+      <div class="status-row" aria-live="polite">
+        <div class="status-item">
+          <span class="status-label">STATE</span>
+          <strong id="stateText">READY</strong>
+        </div>
+        <div class="status-item">
+          <span class="status-label">TIME</span>
+          <strong><span id="timeText">0.0</span>s</strong>
+        </div>
+        <div class="status-item">
+          <span class="status-label">LIFE</span>
+          <strong id="lifeText">♥</strong>
+        </div>
+        <div class="status-item">
+          <span class="status-label">DODGED</span>
+          <strong id="scoreText">0</strong>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <section class="game-panel">
+          <div id="arena" class="arena" tabindex="0" aria-label="눈덩이 피하기 게임 영역">
+            <div class="arena-ring" aria-hidden="true"></div>
+
+            <div id="player" class="player" aria-label="겨울옷을 입은 플레이어">
+              <div class="winter-hat"></div>
+              <div class="person-head">
+                <span class="person-eye left"></span>
+                <span class="person-eye right"></span>
+              </div>
+              <div class="person-scarf"></div>
+              <div class="person-body"></div>
+              <div class="person-leg left-leg"></div>
+              <div class="person-leg right-leg"></div>
+            </div>
+
+            <div id="centerMessage" class="center-message">
+              <strong>READY?</strong>
+              <span>사방에서 날아오는 눈덩이를 피하세요.</span>
+            </div>
+          </div>
+
+          <div class="mobile-controls" aria-label="이동 버튼">
+            <button class="move-btn up" data-dir="up" type="button">↑</button>
+            <button class="move-btn left" data-dir="left" type="button">←</button>
+            <button class="move-btn down" data-dir="down" type="button">↓</button>
+            <button class="move-btn right" data-dir="right" type="button">→</button>
+          </div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="info-block">
+            <p class="section-label">HOW TO PLAY</p>
+            <h2>최대한 오래 버티세요.</h2>
+            <p>눈밭 한가운데서 사방에서 날아오는 눈덩이를 피해 목숨이 다할 때까지 버티세요. 기록이 서버에 저장됩니다.</p>
+            <div class="key-guide">
+              <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd>
+              <span>방향키를 누르고 있으면 계속 이동합니다.</span>
+            </div>
+          </section>
+
+          <section class="setting-block">
+            <label for="nicknameInput">닉네임</label>
+            <input
+              id="nicknameInput"
+              type="text"
+              maxlength="16"
+              placeholder="닉네임을 입력하세요"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <p class="nickname-hint">게임 시작 전 닉네임을 설정해야 합니다. (2~16자)</p>
+
+            <label class="setting-sub-label" for="difficultySelect">난이도</label>
+            <select id="difficultySelect">
+              <option value="easy">EASY</option>
+              <option value="normal" selected>NORMAL — 기본</option>
+              <option value="hard">HARD</option>
+              <option value="hell">HELL</option>
+            </select>
+
+            <label class="setting-sub-label" for="lifeSelect">시작 목숨</label>
+            <select id="lifeSelect">
+              <option value="1" selected>1개 — 기본</option>
+              <option value="2">2개</option>
+              <option value="3">3개 — 최대</option>
+            </select>
+            <p>난이도와 목숨은 게임 시작 전에만 변경할 수 있습니다.</p>
+          </section>
+
+          <section class="rule-block">
+            <div><span>GOAL</span><strong>최대한 오래 생존</strong></div>
+            <div><span>FAIL</span><strong>목숨 모두 소진</strong></div>
+          </section>
+
+          <section class="leaderboard-block">
+            <p class="section-label">LEADERBOARD</p>
+            <ol id="leaderboardList" class="leaderboard-list">
+              <li class="empty">기록이 없습니다.</li>
+            </ol>
+          </section>
+
+          <button id="startBtn" class="primary-btn" type="button">START GAME</button>
+          <button id="restartBtn" class="secondary-btn" type="button" hidden>RESTART</button>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
