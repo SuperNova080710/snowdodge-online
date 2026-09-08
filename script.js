@@ -92,7 +92,7 @@
 
     if (nextState === "READY") {
       centerMessage.classList.remove("hidden");
-      centerMessage.innerHTML = "<strong>READY?</strong><span>사방에서 날아오는 눈덩이를 피하세요.</span>";
+      centerMessage.innerHTML = "<strong>READY?</strong><span>사방에서 날아오는 눈덩이를 피하세요. (스페이스바/버튼으로 시작)</span>";
     }
 
     if (nextState === "FAIL") {
@@ -197,7 +197,7 @@
       console.warn("점수 저장 요청 실패", err);
     }
 
-    load();
+    loadLeaderboard();
   }
 
   async function loadLeaderboard() {
@@ -212,34 +212,34 @@
   }
 
   function renderLeaderboard(rows) {
-  if (!Array.isArray(rows) || rows.length === 0) {
-    leaderboardList.innerHTML = '<li class="empty">기록이 없습니다.</li>';
-    return;
+    if (!Array.isArray(rows) || rows.length === 0) {
+      leaderboardList.innerHTML = '<li class="empty">기록이 없습니다.</li>';
+      return;
+    }
+
+    const difficultyNames = {
+      easy: "EASY",
+      normal: "NORMAL",
+      hard: "HARD",
+      hell: "HELL",
+    };
+
+    leaderboardList.innerHTML = rows
+      .map((row, i) => {
+        const difficulty = difficultyNames[row.difficulty] ?? "NORMAL";
+
+        return `
+          <li>
+            <span class="rank">${i + 1}</span>
+            <span class="name">${escapeHtml(row.nickname)}</span>
+            <span class="meta">
+              ${difficulty} · ${Number(row.survival_time).toFixed(1)}s · ${row.score}개
+            </span>
+          </li>
+        `;
+      })
+      .join("");
   }
-
-  const difficultyNames = {
-    easy: "EASY",
-    normal: "NORMAL",
-    hard: "HARD",
-    hell: "HELL",
-  };
-
-  leaderboardList.innerHTML = rows
-    .map((row, i) => {
-      const difficulty = difficultyNames[row.difficulty] ?? "NORMAL";
-
-      return `
-        <li>
-          <span class="rank">${i + 1}</span>
-          <span class="name">${escapeHtml(row.nickname)}</span>
-          <span class="meta">
-            ${difficulty} · ${Number(row.survival_time).toFixed(1)}s · ${row.score}개
-          </span>
-        </li>
-      `;
-    })
-    .join("");
-}
 
   function escapeHtml(str) {
     return String(str)
@@ -489,6 +489,21 @@
     if (event.key.toLowerCase() === "p" && (state === "PLAYING" || state === "PAUSED")) {
       event.preventDefault();
       pauseGame();
+      return;
+    }
+
+    // 스페이스바 처리
+    if (event.key === " " || event.key === "Spacebar") {
+      // 닉네임 입력 창에 포커스가 맞춰져 있을 때는 스페이스바 시작을 하지 않음
+      if (document.activeElement === nicknameInput) return;
+
+      event.preventDefault();
+      if (state === "READY") {
+        startGame();
+      } else if (state === "FAIL") {
+        resetGame();
+        startGame();
+      }
     }
   }
 
